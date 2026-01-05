@@ -26,8 +26,14 @@ let vapiInstance: Vapi | null = null;
 export const getVapiInstance = () => {
     if (!vapiInstance) {
         if (!VAPI_PUBLIC_KEY) {
-            throw new Error('Vapi Public Key is not configured. Please check your .env file.');
+            console.error('❌ Vapi Public Key is missing!');
+            throw new Error('Vapi Public Key is not configured. Please check your Amplify environment variables and ensure they start with VITE_.');
         }
+
+        if (!VAPI_PUBLIC_KEY.startsWith('public-')) {
+            console.warn('⚠️ Vapi Public Key should typically start with "public-". Current key prefix:', VAPI_PUBLIC_KEY.substring(0, 7));
+        }
+
         vapiInstance = new Vapi(VAPI_PUBLIC_KEY);
     }
     return vapiInstance;
