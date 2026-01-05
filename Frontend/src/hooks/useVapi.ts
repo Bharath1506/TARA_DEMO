@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { getVapiInstance } from '@/services/vapiService';
+import { getVapiInstance, VAPI_ASSISTANT_CONFIG } from '@/services/vapiService';
 
 export interface VapiMessage {
     role: 'user' | 'assistant' | 'system';
@@ -155,11 +155,17 @@ export const useVapi = () => {
                 throw new Error('Assistant ID is not configured. Please check your .env file for VITE_VAPI_ASSISTANT_ID');
             }
 
+            // Create personalized greeting to ensure names from the consent form are used immediately
+            const firstMessage = (employeeName && managerName)
+                ? `Hi. I'm Tara, your HR AI assistant. Thank you, ${employeeName} and ${managerName}, for joining the performance review session. Can we start?`
+                : undefined;
+
             console.log('🚀 Starting Vapi call with assistant ID:', assistantId.substring(0, 8) + '...');
 
-            // Start the call using the dashboard configuration
-            // We only pass variableValues to allow the dashboard prompt to use these names if configured
+            // Start the call using the local configuration override to apply the updated OKR flow
             await vapi.start(assistantId, {
+                firstMessage: firstMessage,
+                model: VAPI_ASSISTANT_CONFIG.model,
                 variableValues: {
                     employeeName: employeeName || 'Employee',
                     managerName: managerName || 'Manager'

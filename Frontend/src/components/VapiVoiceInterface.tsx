@@ -4,6 +4,7 @@ import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Checkbox } from '@/components/ui/checkbox';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { Phone, PhoneOff, Download, Send, Bot, Sparkles, Loader2, Target, CheckCircle2, Paperclip, Link as LinkIcon, X, Heart, Mic, MicOff } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useVapi } from '@/hooks/useVapi';
@@ -266,93 +267,95 @@ ${'='.repeat(60)}
                         </DialogDescription>
                     </DialogHeader>
 
-                    <div className="space-y-6 py-4">
-                        {/* Purpose Explanation */}
-                        <div className="bg-primary/5 rounded-lg p-4 space-y-2">
-                            <h4 className="font-semibold text-foreground">Purpose of This Session</h4>
-                            <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
-                                <li>Conduct a structured performance review conversation</li>
-                                <li>Record and transcribe the discussion for documentation</li>
-                                <li>Generate insights and feedback based on the conversation</li>
-                                <li>Create a comprehensive review report for HR records</li>
-                            </ul>
-                        </div>
-
-                        {/* Participant Names */}
-                        <div className="space-y-4">
-                            <div className="space-y-2">
-                                <label htmlFor="employee-name" className="text-sm font-medium text-foreground">
-                                    Employee Name <span className="text-destructive">*</span>
-                                </label>
-                                <Input
-                                    id="employee-name"
-                                    placeholder="Enter employee name"
-                                    value={employeeName}
-                                    onChange={(e) => setEmployeeName(e.target.value)}
-                                    className="w-full"
-                                />
+                    <ScrollArea className="max-h-[60vh] pr-4">
+                        <div className="space-y-6 py-4">
+                            {/* Purpose Explanation */}
+                            <div className="bg-primary/5 rounded-lg p-4 space-y-2">
+                                <h4 className="font-semibold text-foreground">Purpose of This Session</h4>
+                                <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
+                                    <li>Conduct a structured performance review conversation</li>
+                                    <li>Record and transcribe the discussion for documentation</li>
+                                    <li>Generate insights and feedback based on the conversation</li>
+                                    <li>Create a comprehensive review report for HR records</li>
+                                </ul>
                             </div>
-                            <div className="space-y-2">
-                                <label htmlFor="manager-name" className="text-sm font-medium text-foreground">
-                                    Manager Name <span className="text-destructive">*</span>
-                                </label>
-                                <Input
-                                    id="manager-name"
-                                    placeholder="Enter manager name"
-                                    value={managerName}
-                                    onChange={(e) => setManagerName(e.target.value)}
-                                    className="w-full"
-                                />
-                            </div>
-                        </div>
 
-                        {/* Consent Checkboxes */}
-                        <div className="space-y-4">
-                            <div className="flex items-start space-x-3 p-4 bg-accent/5 rounded-lg border border-accent/20">
-                                <Checkbox
-                                    id="manager-consent"
-                                    checked={managerConsent}
-                                    onCheckedChange={(checked) => setManagerConsent(checked as boolean)}
-                                    className="mt-1"
-                                />
-                                <div className="flex-1">
-                                    <label
-                                        htmlFor="manager-consent"
-                                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
-                                    >
-                                        <span className="font-semibold text-primary">
-                                            {managerName.trim() ? `${managerName} (Manager) Consent` : 'Manager Consent'}
-                                        </span>
-                                        <p className="text-xs text-muted-foreground mt-1">
-                                            I consent to having this performance review session recorded and transcribed. I understand the recording will be used for documentation and HR purposes.
-                                        </p>
+                            {/* Participant Names */}
+                            <div className="space-y-4">
+                                <div className="space-y-2">
+                                    <label htmlFor="employee-name" className="text-sm font-medium text-foreground">
+                                        Employee Name <span className="text-destructive">*</span>
                                     </label>
+                                    <Input
+                                        id="employee-name"
+                                        placeholder="Enter employee name"
+                                        value={employeeName}
+                                        onChange={(e) => setEmployeeName(e.target.value)}
+                                        className="w-full"
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <label htmlFor="manager-name" className="text-sm font-medium text-foreground">
+                                        Manager Name <span className="text-destructive">*</span>
+                                    </label>
+                                    <Input
+                                        id="manager-name"
+                                        placeholder="Enter manager name"
+                                        value={managerName}
+                                        onChange={(e) => setManagerName(e.target.value)}
+                                        className="w-full"
+                                    />
                                 </div>
                             </div>
 
-                            <div className="flex items-start space-x-3 p-4 bg-accent/5 rounded-lg border border-accent/20">
-                                <Checkbox
-                                    id="employee-consent"
-                                    checked={employeeConsent}
-                                    onCheckedChange={(checked) => setEmployeeConsent(checked as boolean)}
-                                    className="mt-1"
-                                />
-                                <div className="flex-1">
-                                    <label
-                                        htmlFor="employee-consent"
-                                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
-                                    >
-                                        <span className="font-semibold text-accent">
-                                            {employeeName.trim() ? `${employeeName} (Employee) Consent` : 'Employee Consent'}
-                                        </span>
-                                        <p className="text-xs text-muted-foreground mt-1">
-                                            I consent to having this performance review session recorded and transcribed. I understand the recording will be used for documentation and HR purposes.
-                                        </p>
-                                    </label>
+                            {/* Consent Checkboxes */}
+                            <div className="space-y-4">
+                                <div className="flex items-start space-x-3 p-4 bg-accent/5 rounded-lg border border-accent/20">
+                                    <Checkbox
+                                        id="manager-consent"
+                                        checked={managerConsent}
+                                        onCheckedChange={(checked) => setManagerConsent(checked as boolean)}
+                                        className="mt-1"
+                                    />
+                                    <div className="flex-1">
+                                        <label
+                                            htmlFor="manager-consent"
+                                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+                                        >
+                                            <span className="font-semibold text-primary">
+                                                {managerName.trim() ? `${managerName} (Manager) Consent` : 'Manager Consent'}
+                                            </span>
+                                            <p className="text-xs text-muted-foreground mt-1">
+                                                I consent to having this performance review session recorded and transcribed. I understand the recording will be used for documentation and HR purposes.
+                                            </p>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div className="flex items-start space-x-3 p-4 bg-accent/5 rounded-lg border border-accent/20">
+                                    <Checkbox
+                                        id="employee-consent"
+                                        checked={employeeConsent}
+                                        onCheckedChange={(checked) => setEmployeeConsent(checked as boolean)}
+                                        className="mt-1"
+                                    />
+                                    <div className="flex-1">
+                                        <label
+                                            htmlFor="employee-consent"
+                                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+                                        >
+                                            <span className="font-semibold text-accent">
+                                                {employeeName.trim() ? `${employeeName} (Employee) Consent` : 'Employee Consent'}
+                                            </span>
+                                            <p className="text-xs text-muted-foreground mt-1">
+                                                I consent to having this performance review session recorded and transcribed. I understand the recording will be used for documentation and HR purposes.
+                                            </p>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </ScrollArea>
 
                     <DialogFooter className="flex gap-2 sm:gap-0">
                         <Button
@@ -530,55 +533,57 @@ ${'='.repeat(60)}
                                 </Button>
                             </div>
 
-                            <div className="flex-1 overflow-y-auto space-y-4 pr-2">
-                                {messages.map((msg, idx) => (
-                                    <div
-                                        key={idx}
-                                        className={`p-4 rounded-lg animate-in fade-in slide-in-from-bottom-2 ${msg.role === 'user'
-                                            ? 'bg-secondary text-secondary-foreground ml-8'
-                                            : 'bg-assistant-bg text-foreground mr-8'
-                                            }`}
-                                    >
-                                        <div className="flex items-start gap-3">
-                                            <div className="flex-1">
-                                                <p className="text-sm font-medium mb-1 text-muted-foreground">
-                                                    {msg.speaker || (msg.role === 'user' ? currentSpeaker : 'Tara (HR Assistant)')}
-                                                </p>
-                                                <p className="text-base whitespace-pre-wrap">{msg.content || '...'}</p>
-                                                <p className="text-xs text-muted-foreground mt-2">
-                                                    {msg.timestamp.toLocaleTimeString()}
-                                                </p>
+                            <ScrollArea className="flex-1 pr-4">
+                                <div className="space-y-4">
+                                    {messages.map((msg, idx) => (
+                                        <div
+                                            key={idx}
+                                            className={`p-4 rounded-lg animate-in fade-in slide-in-from-bottom-2 ${msg.role === 'user'
+                                                ? 'bg-secondary text-secondary-foreground ml-8'
+                                                : 'bg-assistant-bg text-foreground mr-8'
+                                                }`}
+                                        >
+                                            <div className="flex items-start gap-3">
+                                                <div className="flex-1">
+                                                    <p className="text-sm font-medium mb-1 text-muted-foreground">
+                                                        {msg.speaker || (msg.role === 'user' ? currentSpeaker : 'Tara (HR Assistant)')}
+                                                    </p>
+                                                    <p className="text-base whitespace-pre-wrap">{msg.content || '...'}</p>
+                                                    <p className="text-xs text-muted-foreground mt-2">
+                                                        {msg.timestamp.toLocaleTimeString()}
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    ))}
 
-                                {/* Live Transcription Preview */}
-                                {transcript && (
-                                    <div className="p-4 rounded-lg animate-in fade-in slide-in-from-bottom-2 bg-secondary/50 text-secondary-foreground ml-8 border border-dashed border-secondary-foreground/20">
-                                        <div className="flex items-start gap-3">
-                                            <div className="flex-1">
-                                                <p className="text-sm font-medium mb-1 text-muted-foreground flex items-center gap-2">
-                                                    {isCallActive ? (
-                                                        <>
-                                                            <span className="h-2 w-2 rounded-full bg-red-500 animate-pulse"></span>
-                                                            Speaking...
-                                                        </>
-                                                    ) : (
-                                                        <>
-                                                            <span className="h-2 w-2 rounded-full bg-yellow-500 animate-pulse"></span>
-                                                            Processing...
-                                                        </>
-                                                    )}
-                                                </p>
-                                                <p className="text-base whitespace-pre-wrap">{transcript}</p>
+                                    {/* Live Transcription Preview */}
+                                    {transcript && (
+                                        <div className="p-4 rounded-lg animate-in fade-in slide-in-from-bottom-2 bg-secondary/50 text-secondary-foreground ml-8 border border-dashed border-secondary-foreground/20">
+                                            <div className="flex items-start gap-3">
+                                                <div className="flex-1">
+                                                    <p className="text-sm font-medium mb-1 text-muted-foreground flex items-center gap-2">
+                                                        {isCallActive ? (
+                                                            <>
+                                                                <span className="h-2 w-2 rounded-full bg-red-500 animate-pulse"></span>
+                                                                Speaking...
+                                                            </>
+                                                        ) : (
+                                                            <>
+                                                                <span className="h-2 w-2 rounded-full bg-yellow-500 animate-pulse"></span>
+                                                                Processing...
+                                                            </>
+                                                        )}
+                                                    </p>
+                                                    <p className="text-base whitespace-pre-wrap">{transcript}</p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                )}
+                                    )}
 
-                                <div ref={messagesEndRef} />
-                            </div>
+                                    <div ref={messagesEndRef} />
+                                </div>
+                            </ScrollArea>
                         </Card>
 
                         {/* Right Column: Voice Controls */}
